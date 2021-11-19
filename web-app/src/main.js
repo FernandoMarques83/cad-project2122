@@ -3,4 +3,8 @@ import App from './App.vue'
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-createApp(App).mount('#app')
+const app = createApp(App)
+
+
+/*createApp(App).mount('#app')*/
+app.mount('#app')
