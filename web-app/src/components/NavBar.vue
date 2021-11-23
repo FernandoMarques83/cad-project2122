@@ -1,7 +1,7 @@
 <template>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand mb-0 h1" href="#">Controlo e Monitorização Inteligente na Agricultura</a>
+        <router-link class="navbar-brand mb-0 h1" to="/">Controlo e Monitorização Inteligente na Agricultura</router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleContent"
             aria-controls="navbarToggleContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -9,13 +9,13 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarToggleContent">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Monitorização</a>
+                    <router-link class="nav-link" to="/">Monitorização</router-link>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="rules.html">Regras</a>
+                    <router-link class="nav-link" to="/Regras">Regras</router-link>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="add.html">Adicionar</a>
+                    <router-link class="nav-link" to="/Add">Adicionar</router-link>
                 </li>
             </ul>
         </div>

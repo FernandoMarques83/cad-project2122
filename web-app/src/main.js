@@ -1,10 +1,37 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import GeneralData from './components/GeneralData'
+import Add from './components/Add'
+import Regras from './components/Regras'
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import '@fortawesome/fontawesome-free/js/fontawesome'
+import '@fortawesome/fontawesome-free/js/solid'
+import '@fortawesome/fontawesome-free/js/regular'
 
-const app = createApp(App)
+/* Configurar router para navegar entre as páginas da aplicação */
+/* vue-router / :HomeComponent  /rules:RulesComponent  /settings :SettingsComponents */
 
+import { createRouter, createWebHashHistory } from 'vue-router'
 
-/*createApp(App).mount('#app')*/
-app.mount('#app')
+const router = createRouter({
+    history: createWebHashHistory(),
+    routes: [
+        {
+            'path':'/',
+            'component': GeneralData
+        },
+        {
+            'path':'/Add',
+            'component': Add
+        },
+        {
+            'path':'/Regras',
+            'component': Regras
+        }
+    ]
+})
+
+createApp(App).use(router).mount('#app')  /* para usar router */
+
+/* createApp(App).mount('#app') */
