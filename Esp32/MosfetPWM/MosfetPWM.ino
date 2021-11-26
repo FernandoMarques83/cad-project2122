@@ -1,6 +1,6 @@
 // the number of the LED pin
-const int ledPin = GPIO_NUM_32;  // 16 corresponds to GPIO16
-const int relayPin = GPIO_NUM_33;
+const int ledPin = GPIO_NUM_2;  // 16 corresponds to GPIO16
+const int relayPin = GPIO_NUM_25;
 
 // setting PWM properties
 const int freq = 5000;
@@ -15,6 +15,7 @@ void setup() {
   ledcAttachPin(ledPin, ledChannel);
 
   pinMode(relayPin, OUTPUT);
+  delay(1000);
 }
 
 void loop() {
