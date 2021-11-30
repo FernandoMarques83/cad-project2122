@@ -1,5 +1,5 @@
 
-const int relayPin = GPIO_NUM_32;
+const int relayPin = GPIO_NUM_25;
 
 
 void setup() {

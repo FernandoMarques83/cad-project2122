@@ -32,6 +32,37 @@ const router = createRouter({
     ]
 })
 
-createApp(App).use(router).mount('#app')  /* para usar router */
+
+const app = createApp(App).use(router)
+
+app.component('toggle', {
+    props: ['title'],
+    data() {
+        return {
+            isOn: false
+        }
+    },
+    methods: {
+        toggleClick() {
+            this.isOn = !this.isOn
+        },
+        
+    },
+    computed: {
+        changeLight() {
+            return {
+                'fas': this.isOn,
+                'far': !this.isOn
+            }
+        }
+    },
+    template: `
+    <i class="fa-lightbulb" :class="changeLight"></i>
+    <p>{{ title }}</p>
+    <i @click="toggleClick" class="fas" :class="{'fa-toggle-on': isOn, 'fa-toggle-off': !isOn}"></i>`
+})
+
+app.mount('#app')  /* para usar router */
+
 
 /* createApp(App).mount('#app') */
