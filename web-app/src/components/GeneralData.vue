@@ -10,39 +10,11 @@
               <div class="card-group">
                 <div class="card">
                   <div class="card-body">
-                    <div>
-                      <div class="d-flex">
-                        <i class="fas fa-temperature-high text-dark"></i>
-                        <i class="pe-1"></i>
-                        <strong> Temperatura </strong>
-                        <div id="currentTemp" class="ms-auto">{{ msg }}</div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="d-flex">
-                        <i class="fas fa-temperature-high text-warning"></i>
-                        <i class="pe-1"></i>
-                        <strong> Sensação térmica </strong>
-                        <div id="currentTemp" class="ms-auto"></div>
-                        <toggle :title="lampada"></toggle>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="d-flex">
-                        <i class="fas fa-temperature-high text-danger"></i>
-                        <i class="pe-1"></i>
-                        <strong> Temperatura máxima </strong>
-                        <div id="maxTemp" class="ms-auto"></div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="d-flex">
-                        <i class="fas fa-temperature-low text-primary"></i>
-                        <i class="pe-1"></i>
-                        <strong> Temperatura mínima</strong>
-                        <div id="minTemp" class="ms-auto"></div>
-                      </div>
-                    </div>
+                      <OpenItem :title="'Temperatura'" :icon="'fas fa-temperature-high'" :textColor="'text-dark'" />
+                      <OpenItem :title="'Sensação térmica'" :icon="'fas fa-temperature-high'" :textColor="'text-warning'" />
+                      <OpenItem :title="'Temperatura máxima'" :icon="'fas fa-temperature-high'" :textColor="'text-danger'" />
+                      <OpenItem :title="'Sensação mínima'" :icon="'fas fa-temperature-low'" :textColor="'text-primary'" />
+                      <ZoneCard :title="'Estufa'" />
                   </div>
                 </div>
                 <div class="card">
@@ -143,16 +115,7 @@
                         <div id="currentTemp" class="ms-auto"></div>
                       </div>
                     </div>
-                    <div>
-                      <div class="d-flex">
-                        <i class="fas fa-hospital-user text-danger"></i>
-                        <i class="pe-1"></i>
-                        <strong>
-                          Casos comfirmados no último dia em Leiria
-                        </strong>
-                        <div id="currentTemp" class="ms-auto"></div>
-                      </div>
-                    </div>
+                    <CovidItem :title="'Casos comfirmados no último dia em Leiria'" :icon="'fas fa-hospital-user'" :textColor="'text-danger'" />
                   </div>
                 </div>
               </div>
@@ -277,8 +240,20 @@
 </template>
 
 <script>
+import ZoneCard from './ZoneCard.vue'
+import OpenItem from './OpenItem.vue'
+import CovidItem from './CovidItem.vue'
 export default {
   name: "GeneralData",
-  componets: {},
+  components: {
+    ZoneCard,
+    OpenItem, 
+    CovidItem
+  },
+  data(){
+    return{
+      sensores: [], 
+    }
+  }
 };
 </script>                                                                                                                                               
