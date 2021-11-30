@@ -59,7 +59,7 @@
                     </div>
                     <div>
                       <div class="d-flex">
-                        <i class="fas fa-percentage text-info pe-0"></i>
+                        <i class="fas fa-tint text-success pe-1"></i>
                         <strong> Humidade </strong>
                         <div id="fetchedTime" class="ms-auto"></div>
                       </div>
