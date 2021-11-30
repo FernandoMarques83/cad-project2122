@@ -1,5 +1,4 @@
 <template>
-
   <div>
     <span class="border border-bottom-0"></span>
     <div class="container-fluid">
@@ -7,7 +6,7 @@
         <div class="col-md">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title text-center">Informação do Ambiente</h5>
+              <h4 class="card-title text-center">Informação do Ambiente</h4>
               <div class="card-group">
                 <div class="card">
                   <div class="card-body">
@@ -16,7 +15,7 @@
                         <i class="fas fa-temperature-high text-dark"></i>
                         <i class="pe-1"></i>
                         <strong> Temperatura </strong>
-                        <div id="currentTemp" class="ms-auto"></div>
+                        <div id="currentTemp" class="ms-auto">{{ msg }}</div>
                       </div>
                     </div>
                     <div>
@@ -25,6 +24,7 @@
                         <i class="pe-1"></i>
                         <strong> Sensação térmica </strong>
                         <div id="currentTemp" class="ms-auto"></div>
+                        <toggle :title="lampada"></toggle>
                       </div>
                     </div>
                     <div>
@@ -129,7 +129,7 @@
         <div class="col-md">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title text-center">Noticias covid-19</h5>
+              <h4 class="card-title text-center">Noticias covid-19</h4>
               <div class="card-group">
                 <div class="card">
                   <div class="card-body">
@@ -167,64 +167,102 @@
         <div class="col-md">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title text-center">
+              <h4 class="card-title text-center">
                 Zonas de controlo e monitorização
-              </h5>
+              </h4>
               <div class="card-group">
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title text-center">Estufa</h5>
-                    <div>
-                      <div class="d-flex">
-                        <i class="fas fa-thermometer-half"></i>
-                        <i class="pe-1"></i>
-                        <strong> Temperatura </strong>
-                        <div id="currentTemp" class="ms-auto"></div>
+                    <h5 class="card-title">Estufa</h5>
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title text-center">Sensores</h5>
+                        <div>
+                          <div class="d-flex">
+                            <i class="fas fa-thermometer-half"></i>
+                            <i class="pe-1"></i>
+                            <strong> Temperatura </strong>
+                            <div id="currentTemp" class="ms-auto"></div>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="d-flex">
+                            <i class="fas fa-percentage text-info"></i>
+                            <i class="pe-1"></i>
+                            <strong> Humidade do ar </strong>
+                            <div id="currentTemp" class="ms-auto"></div>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="d-flex">
+                            <i class="fas fa-percentage text-info"></i>
+                            <i class="pe-1"></i>
+                            <strong> Humidade do solo </strong>
+                            <div id="maxTemp" class="ms-auto"></div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div>
-                      <div class="d-flex">
-                        <i class="fas fa-percentage text-info"></i>
-                        <i class="pe-1"></i>
-                        <strong> Humidade do ar </strong>
-                        <div id="currentTemp" class="ms-auto"></div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="d-flex">
-                        <i class="fas fa-percentage text-info"></i>
-                        <i class="pe-1"></i>
-                        <strong> Humidade do solo </strong>
-                        <div id="maxTemp" class="ms-auto"></div>
+                    <span class="border border-bottom-0"></span>
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title text-center">Atuador</h5>
+                        <div>
+                          <div class="d-flex">
+                            <i class="fas fa-fan text-success"></i>
+                            <i class="pe-1"></i>
+                            <strong> Velocidade da ventoinha </strong>
+                            <div id="currentTemp" class="ms-auto"></div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title text-center">Jardim da Piscina</h5>
-                    <div>
-                      <div class="d-flex">
-                        <i class="fas fa-thermometer-half"></i>
-                        <i class="pe-1"></i>
-                        <strong> Temperatura </strong>
-                        <div id="currentTemp" class="ms-auto"></div>
+                    <h5 class="card-title">Jardim da Piscina</h5>
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title text-center">Sensores</h5>
+                        <div>
+                          <div class="d-flex">
+                            <i class="fas fa-thermometer-half"></i>
+                            <i class="pe-1"></i>
+                            <strong> Temperatura </strong>
+                            <div id="currentTemp" class="ms-auto"></div>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="d-flex">
+                            <i class="fas fa-sun text-warning"></i>
+                            <i class="pe-1"></i>
+                            <strong> Exposição solar </strong>
+                            <div id="currentTemp" class="ms-auto"></div>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="d-flex">
+                            <i class="fas fa-percentage text-info"></i>
+                            <i class="pe-1"></i>
+                            <strong> Humidade do solo </strong>
+                            <div id="maxTemp" class="ms-auto"></div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div>
-                      <div class="d-flex">
-                        <i class="fas fa-sun text-warning"></i>
-                        <i class="pe-1"></i>
-                        <strong> Exposição solar </strong>
-                        <div id="currentTemp" class="ms-auto"></div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="d-flex">
-                        <i class="fas fa-percentage text-info"></i>
-                        <i class="pe-1"></i>
-                        <strong> Humidade do solo </strong>
-                        <div id="maxTemp" class="ms-auto"></div>
+                    <span class="border border-bottom-0"></span>
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title text-center">Atuador</h5>
+                        <div>
+                          <div class="d-flex">
+                            <i class="fas fa-water text-primary"></i>
+                            <i class="pe-1"></i>
+                            <strong> Irrigadores </strong>
+                            <div id="currentTemp" class="ms-auto"></div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -241,8 +279,6 @@
 <script>
 export default {
   name: "GeneralData",
-  componets:{
-      
-  }
+  componets: {},
 };
-</script>
+</script>                                                                                                                                               

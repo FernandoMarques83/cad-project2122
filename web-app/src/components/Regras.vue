@@ -6,7 +6,7 @@
         <div class="col-md">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title text-center">Notificações</h5>
+              <h4 class="card-title text-center">Notificações</h4>
               <div class="card-group">
                 <div class="card">
                   <div class="card-body">
@@ -78,7 +78,7 @@
         <div class="col-md">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title text-center">Definição de limiares</h5>
+              <h4 class="card-title text-center">Definição de limiares</h4>
               <div class="card-group">
                 <div class="card">
                   <div class="card-body">
