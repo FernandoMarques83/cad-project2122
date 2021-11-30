@@ -13,6 +13,7 @@ import '@fortawesome/fontawesome-free/js/regular'
 /* vue-router / :HomeComponent  /rules:RulesComponent  /settings :SettingsComponents */
 
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { initializeApp } from "firebase/app"
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -33,36 +34,19 @@ const router = createRouter({
 })
 
 
-const app = createApp(App).use(router)
+createApp(App).use(router).mount('#app')  /* para usar router */
 
-app.component('toggle', {
-    props: ['title'],
-    data() {
-        return {
-            isOn: false
-        }
-    },
-    methods: {
-        toggleClick() {
-            this.isOn = !this.isOn
-        },
-        
-    },
-    computed: {
-        changeLight() {
-            return {
-                'fas': this.isOn,
-                'far': !this.isOn
-            }
-        }
-    },
-    template: `
-    <i class="fa-lightbulb" :class="changeLight"></i>
-    <p>{{ title }}</p>
-    <i @click="toggleClick" class="fas" :class="{'fa-toggle-on': isOn, 'fa-toggle-off': !isOn}"></i>`
-})
+const firebaseConfig = {
+    apiKey: "AIzaSyBVp7AbG9vujk7RIu-q9fgIuSYkXCAdXHI",
+    authDomain: "projeto-dam-4bcc6.firebaseapp.com",
+    databaseURL: "https://projeto-dam-4bcc6-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "projeto-dam-4bcc6",
+    storageBucket: "projeto-dam-4bcc6.appspot.com",
+    messagingSenderId: "692947282017",
+    appId: "1:692947282017:web:5f4e0602833f9858c1a220"
+  };
 
-app.mount('#app')  /* para usar router */
+  initializeApp(firebaseConfig);
 
 
 /* createApp(App).mount('#app') */
