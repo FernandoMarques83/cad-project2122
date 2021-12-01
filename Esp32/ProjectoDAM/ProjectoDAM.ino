@@ -38,7 +38,7 @@ float estufaHumidAr = 0;
 float estufaHumidSolo = 0;
 int estufaFanSpeed = 0;
 int estufaHighTemp = 0;
-
+String fanSpeed = "";
 //-------------------------------- Definição das variaveis do jardim ------------------------------
 float jardimTemp = 0;
 float jardimSolar = 0;
@@ -95,11 +95,10 @@ void loop()
   readGY21();
 
 
-  if (millis() - dataMillis > 1000 && Firebase.ready()) {
+  if (millis() - dataMillis > 500 && Firebase.ready()) {
     dataMillis = millis();
-
     writeFirebase();
-
+    readFirebase();
   }
 }
 
@@ -205,14 +204,16 @@ void readGY21()
 
 void readFirebase()
 {
-  estufaTemp = Firebase.RTDB.getFloat(&fbdo, "estufa/sensores/temperatura");
-  estufaTemp = fbdo.floatData();
+  fanSpeed = Firebase.RTDB.getString(&fbdo, "actuator1");
+  fanSpeed = fbdo.stringData();
+
+  Serial.printf("ActuatorValue %d : \n", fanSpeed);
 }
 
 void writeFirebase()
 {
-  Firebase.RTDB.setFloat(&fbdo, "estufa/sensores/temperatura", bmeTemp);
-  Firebase.RTDB.setFloat(&fbdo, "estufa/sensores/humidadeAr", siHumid);
-  Firebase.RTDB.setFloat(&fbdo, "jardimPool/sensores/temperatura", LM35_TempC_Sensor1);
-  Firebase.RTDB.setFloat(&fbdo, "jardimPool/sensores/expSolar", ldrLux);
+  Firebase.RTDB.setFloat(&fbdo, "sensor1", bmeTemp);
+  Firebase.RTDB.setFloat(&fbdo, "sensor2", siHumid);
+  Firebase.RTDB.setFloat(&fbdo, "sensor4", LM35_TempC_Sensor1);
+  Firebase.RTDB.setFloat(&fbdo, "sensor5", ldrLux);
 }

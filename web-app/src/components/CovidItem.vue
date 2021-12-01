@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-flex">
-      <i :class="[icon, textColor]"> </i>
+      <i :class="[icon]"> </i>
       <i class="pe-1"></i>
       <strong> {{title}}</strong>
     </div>
@@ -15,6 +15,5 @@ export default {
   name: "CovidItem",
   props: ["title", "icon", "textColor"],
 
-  
 };
 </script>

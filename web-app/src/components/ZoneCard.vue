@@ -1,7 +1,12 @@
 <template>
-  <div class="card">
-    {{ title }}
-    <ThingComponent v-for="thing in things" :key="thing" :thing="thing" />
+  <div class="card-group">
+    <div class="card">
+      <div class="card-body">
+        <div>
+          <ThingComponent v-for="thing in things" :key="thing" :thing="thing" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
