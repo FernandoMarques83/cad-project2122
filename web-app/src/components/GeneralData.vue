@@ -10,82 +10,34 @@
               <div class="card-group">
                 <div class="card">
                   <div class="card-body">
-                      <OpenItem :title="'Temperatura'" :icon="'fas fa-temperature-high'" :textColor="'text-dark'" />
-                      <OpenItem :title="'Sensação térmica'" :icon="'fas fa-temperature-high'" :textColor="'text-warning'" />
-                      <OpenItem :title="'Temperatura máxima'" :icon="'fas fa-temperature-high'" :textColor="'text-danger'" />
-                      <OpenItem :title="'Sensação mínima'" :icon="'fas fa-temperature-low'" :textColor="'text-primary'" />
-                      <ZoneCard :title="'Estufa'" />
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="card-body">
-                    <div>
-                      <div class="d-flex">
-                        <i class="fas fa-sun text-warning"></i>
-                        <i class="pe-1"></i>
-                        <strong> Nascer do sol </strong>
-                        <div id="sunriseTime" class="ms-auto"></div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="d-flex">
-                        <i class="fas fa-moon text-black"></i>
-                        <i class="pe-1"></i>
-                        <strong> Pôr do sol </strong>
-                        <div id="sunsetTime" class="ms-auto"></div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="d-flex">
-                        <i class="fas fa-percentage text-info"></i>
-                        <i class="pe-1"></i>
-                        <strong> Humidade </strong>
-                        <div id="fetchedTime" class="ms-auto"></div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="d-flex">
-                        <i class="fas fa-cloud text-info"></i>
-                        <i class="pe-1"></i>
-                        <strong> Nebulosidade </strong>
-                        <div id="fetchedTime" class="ms-auto"></div>
-                      </div>
+                    <div v-for="firstItem in firstItems" :key="firstItem.id">
+                      <OpenItem
+                        :title="firstItem.title"
+                        :icon="firstItem.icon"
+                        :openKey="firstItem.openKey"
+                      />
                     </div>
                   </div>
                 </div>
                 <div class="card">
                   <div class="card-body">
-                    <div>
-                      <div class="d-flex">
-                        <i class="fas fa-wind text-muted"></i>
-                        <i class="pe-1"></i>
-                        <strong> Velocidade do vento </strong>
-                        <div id="sunriseTime" class="ms-auto"></div>
-                      </div>
+                    <div v-for="secondItem in secondItems" :key="secondItem.id">
+                      <OpenItem
+                        :title="secondItem.title"
+                        :icon="secondItem.icon"
+                        :openKey="secondItem.openKey"
+                      />
                     </div>
-                    <div>
-                      <div class="d-flex">
-                        <i class="fas fa-wind text-muted"></i>
-                        <i class="pe-1"></i>
-                        <strong> Sentido do vento </strong>
-                        <div id="sunsetTime" class="ms-auto"></div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="d-flex">
-                        <i class="fas fa-cloud-rain text-info"></i>
-                        <i class="pe-1"></i>
-                        <strong> Volume de chuva na última hora </strong>
-                        <div id="fetchedTime" class="ms-auto"></div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="d-flex">
-                        <i class="fas fa-snowflake text-primary"></i>
-                        <i class="pe-1"></i>
-                        <strong> Volume de neve na última hora </strong>
-                        <div id="fetchedTime" class="ms-auto"></div>
-                      </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body">
+                    <div v-for="thirdItem in thirdItems" :key="thirdItem.id">
+                      <OpenItem
+                        :title="thirdItem.title"
+                        :icon="thirdItem.icon"
+                        :openKey="thirdItem.openKey"
+                      />
                     </div>
                   </div>
                 </div>
@@ -105,17 +57,13 @@
               <div class="card-group">
                 <div class="card">
                   <div class="card-body">
-                    <div>
-                      <div class="d-flex">
-                        <i class="fas fa-hospital-user text-danger"></i>
-                        <i class="pe-1"></i>
-                        <strong>
-                          Casos confirmados nos últimos 14 dias em Leiria
-                        </strong>
-                        <div id="currentTemp" class="ms-auto"></div>
-                      </div>
+                    <div v-for="covidItem in covidItems" :key="covidItem.id">
+                      <CovidItem
+                        :title="covidItem.title"
+                        :icon="covidItem.icon"
+                        :covidKey="covidItem.covidKey"
+                      />
                     </div>
-                    <CovidItem :title="'Casos comfirmados no último dia em Leiria'" :icon="'fas fa-hospital-user'" :textColor="'text-danger'" />
                   </div>
                 </div>
               </div>
@@ -137,97 +85,13 @@
                 <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">Estufa</h5>
-                    <div class="card">
-                      <div class="card-body">
-                        <h5 class="card-title text-center">Sensores</h5>
-                        <div>
-                          <div class="d-flex">
-                            <i class="fas fa-thermometer-half"></i>
-                            <i class="pe-1"></i>
-                            <strong> Temperatura </strong>
-                            <div id="currentTemp" class="ms-auto"></div>
-                          </div>
-                        </div>
-                        <div>
-                          <div class="d-flex">
-                            <i class="fas fa-percentage text-info"></i>
-                            <i class="pe-1"></i>
-                            <strong> Humidade do ar </strong>
-                            <div id="currentTemp" class="ms-auto"></div>
-                          </div>
-                        </div>
-                        <div>
-                          <div class="d-flex">
-                            <i class="fas fa-percentage text-info"></i>
-                            <i class="pe-1"></i>
-                            <strong> Humidade do solo </strong>
-                            <div id="maxTemp" class="ms-auto"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <span class="border border-bottom-0"></span>
-                    <div class="card">
-                      <div class="card-body">
-                        <h5 class="card-title text-center">Atuador</h5>
-                        <div>
-                          <div class="d-flex">
-                            <i class="fas fa-fan text-success"></i>
-                            <i class="pe-1"></i>
-                            <strong> Velocidade da ventoinha </strong>
-                            <div id="currentTemp" class="ms-auto"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <ZoneCard :title="'Estufa'" />
                   </div>
                 </div>
                 <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">Jardim da Piscina</h5>
-                    <div class="card">
-                      <div class="card-body">
-                        <h5 class="card-title text-center">Sensores</h5>
-                        <div>
-                          <div class="d-flex">
-                            <i class="fas fa-thermometer-half"></i>
-                            <i class="pe-1"></i>
-                            <strong> Temperatura </strong>
-                            <div id="currentTemp" class="ms-auto"></div>
-                          </div>
-                        </div>
-                        <div>
-                          <div class="d-flex">
-                            <i class="fas fa-sun text-warning"></i>
-                            <i class="pe-1"></i>
-                            <strong> Exposição solar </strong>
-                            <div id="currentTemp" class="ms-auto"></div>
-                          </div>
-                        </div>
-                        <div>
-                          <div class="d-flex">
-                            <i class="fas fa-percentage text-info"></i>
-                            <i class="pe-1"></i>
-                            <strong> Humidade do solo </strong>
-                            <div id="maxTemp" class="ms-auto"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <span class="border border-bottom-0"></span>
-                    <div class="card">
-                      <div class="card-body">
-                        <h5 class="card-title text-center">Atuador</h5>
-                        <div>
-                          <div class="d-flex">
-                            <i class="fas fa-water text-primary"></i>
-                            <i class="pe-1"></i>
-                            <strong> Irrigadores </strong>
-                            <div id="currentTemp" class="ms-auto"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <ZoneCard :title="'JardimPiscina'" />
                   </div>
                 </div>
               </div>
@@ -240,20 +104,115 @@
 </template>
 
 <script>
-import ZoneCard from './ZoneCard.vue'
-import OpenItem from './OpenItem.vue'
-import CovidItem from './CovidItem.vue'
+import ZoneCard from "./ZoneCard.vue";
+import OpenItem from "./OpenItem.vue";
+import uniqueId from "lodash.uniqueid";
+import CovidItem from "./CovidItem.vue";
+/*import AlertCard from "./notAlert.vue";*/
+
 export default {
   name: "GeneralData",
   components: {
     ZoneCard,
-    OpenItem, 
-    CovidItem
+    OpenItem,
+    CovidItem,
+    /*AlertCard,*/
   },
-  data(){
-    return{
-      sensores: [], 
-    }
-  }
+  data() {
+    return {
+      firstItems: [
+        {
+          id: uniqueId("todo-"),
+          title: "Temperatura",
+          icon: "fas fa-thermometer-half text-dark",
+          openKey: "main.temp",
+        },
+        {
+          id: uniqueId("todo-"),
+          title: "Sensação térmica",
+          icon: "fas fa-thermometer-half text-warning",
+          openKey: "main.feels_like",
+        },
+        {
+          id: uniqueId("todo-"),
+          title: "Temperatura mínima",
+          icon: "fas fa-temperature-low text-primary",
+          openKey: "main.temp_min",
+        },
+        {
+          id: uniqueId("todo-"),
+          title: "Temperatura máxima",
+          icon: "fas fa-temperature-high text-danger",
+          openKey: "main.temp_max",
+        },
+      ],
+      secondItems: [
+        {
+          id: uniqueId("todo-"),
+          title: "Nascer do sol",
+          icon: "fas fa-sun text-warning",
+          openKey: "sys.sunrise",
+        },
+        {
+          id: uniqueId("todo-"),
+          title: "Pôr do sol",
+          icon: "fas fa-moon text-dark",
+          openKey: "sys.sunset",
+        },
+        {
+          id: uniqueId("todo-"),
+          title: "Humidade",
+          icon: "fas fa-percentage text-info",
+          openKey: "main.humidity",
+        },
+        {
+          id: uniqueId("todo-"),
+          title: "Nebulosidade",
+          icon: "fas fa-cloud text-muted",
+          openKey: "clouds.all",
+        },
+      ],
+      thirdItems: [
+        {
+          id: uniqueId("todo-"),
+          title: "Velocidade do vento",
+          icon: "fas fa-wind text-muted",
+          openKey: "wind.speed",
+        },
+        {
+          id: uniqueId("todo-"),
+          title: "Sentido do vento",
+          icon: "fas fa-wind text-muted",
+          openKey: "wind.deg",
+        },
+        {
+          id: uniqueId("todo-"),
+          title: "Volume de chuva na última hora",
+          icon: "fas fa-cloud-rain text-info",
+          openKey: "rain.1h",
+        },
+        {
+          id: uniqueId("todo-"),
+          title: "Volume de neve na última hora",
+          icon: "fas fa-snowflake text-primary",
+          openKey: "snow.1h",
+        },
+      ],
+      covidItems: [
+        {
+          id: uniqueId("todo-"),
+          title: "Total de casos confirmados em Portugal",
+          icon: "fas fa-hospital-user text-danger",
+          covidKey: "confirmados",
+        },
+        {
+          id: uniqueId("todo-"),
+          title: "Casos comfirmados no último dia em Portugal",
+          icon: "fas fa-hospital-user text-danger",
+          covidKey: "confirmados_novos"
+        },
+      ],
+    };
+  },
 };
 </script>                                                                                                                                               
