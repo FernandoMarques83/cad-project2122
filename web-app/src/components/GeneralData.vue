@@ -14,6 +14,7 @@
                       <OpenItem
                         :title="firstItem.title"
                         :icon="firstItem.icon"
+                        :openKey="firstItem.openKey"
                       />
                     </div>
                   </div>
@@ -24,6 +25,7 @@
                       <OpenItem
                         :title="secondItem.title"
                         :icon="secondItem.icon"
+                        :openKey="secondItem.openKey"
                       />
                     </div>
                   </div>
@@ -34,6 +36,7 @@
                       <OpenItem
                         :title="thirdItem.title"
                         :icon="thirdItem.icon"
+                        :openKey="thirdItem.openKey"
                       />
                     </div>
                   </div>
@@ -58,6 +61,7 @@
                       <CovidItem
                         :title="covidItem.title"
                         :icon="covidItem.icon"
+                        :covidKey="covidItem.covidKey"
                       />
                     </div>
                   </div>
@@ -104,12 +108,15 @@ import ZoneCard from "./ZoneCard.vue";
 import OpenItem from "./OpenItem.vue";
 import uniqueId from "lodash.uniqueid";
 import CovidItem from "./CovidItem.vue";
+/*import AlertCard from "./notAlert.vue";*/
+
 export default {
   name: "GeneralData",
   components: {
     ZoneCard,
     OpenItem,
     CovidItem,
+    /*AlertCard,*/
   },
   data() {
     return {
@@ -118,21 +125,25 @@ export default {
           id: uniqueId("todo-"),
           title: "Temperatura",
           icon: "fas fa-thermometer-half text-dark",
+          openKey: "main.temp",
         },
         {
           id: uniqueId("todo-"),
           title: "Sensação térmica",
           icon: "fas fa-thermometer-half text-warning",
+          openKey: "main.feels_like",
         },
         {
           id: uniqueId("todo-"),
           title: "Temperatura mínima",
           icon: "fas fa-temperature-low text-primary",
+          openKey: "main.temp_min",
         },
         {
           id: uniqueId("todo-"),
           title: "Temperatura máxima",
           icon: "fas fa-temperature-high text-danger",
+          openKey: "main.temp_max",
         },
       ],
       secondItems: [
@@ -140,21 +151,25 @@ export default {
           id: uniqueId("todo-"),
           title: "Nascer do sol",
           icon: "fas fa-sun text-warning",
+          openKey: "sys.sunrise",
         },
         {
           id: uniqueId("todo-"),
           title: "Pôr do sol",
           icon: "fas fa-moon text-dark",
+          openKey: "sys.sunset",
         },
         {
           id: uniqueId("todo-"),
           title: "Humidade",
           icon: "fas fa-percentage text-info",
+          openKey: "main.humidity",
         },
         {
           id: uniqueId("todo-"),
           title: "Nebulosidade",
           icon: "fas fa-cloud text-muted",
+          openKey: "clouds.all",
         },
       ],
       thirdItems: [
@@ -162,33 +177,39 @@ export default {
           id: uniqueId("todo-"),
           title: "Velocidade do vento",
           icon: "fas fa-wind text-muted",
+          openKey: "wind.speed",
         },
         {
           id: uniqueId("todo-"),
           title: "Sentido do vento",
           icon: "fas fa-wind text-muted",
+          openKey: "wind.deg",
         },
         {
           id: uniqueId("todo-"),
           title: "Volume de chuva na última hora",
           icon: "fas fa-cloud-rain text-info",
+          openKey: "rain.1h",
         },
         {
           id: uniqueId("todo-"),
           title: "Volume de neve na última hora",
           icon: "fas fa-snowflake text-primary",
+          openKey: "snow.1h",
         },
       ],
       covidItems: [
         {
           id: uniqueId("todo-"),
-          title: "Casos comfirmados nos últimos 14 dias em Leiria",
+          title: "Total de casos confirmados em Portugal",
           icon: "fas fa-hospital-user text-danger",
+          covidKey: "confirmados",
         },
         {
           id: uniqueId("todo-"),
-          title: "Casos comfirmados no último dia em Leiria",
+          title: "Casos comfirmados no último dia em Portugal",
           icon: "fas fa-hospital-user text-danger",
+          covidKey: "confirmados_novos"
         },
       ],
     };

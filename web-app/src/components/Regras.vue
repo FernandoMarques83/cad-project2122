@@ -11,59 +11,13 @@
                 <div class="card">
                   <div class="card-body">
                     <h5 class="card-title text-center">Estufa</h5>
-                    <div>
-                      <div class="d-flex">
-                        <i class="far fa-flag text-danger"></i>
-                        <i class="pe-1"></i>
-                        <strong> Notificação para a temperatura </strong>
-                        <div id="currentTemp" class="ms-auto"></div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="d-flex">
-                        <i class="far fa-flag text-danger"></i>
-                        <i class="pe-1"></i>
-                        <strong> Notificação para a humidade do ar </strong>
-                        <div id="currentTemp" class="ms-auto"></div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="d-flex">
-                        <i class="far fa-flag text-danger"></i>
-                        <i class="pe-1"></i>
-                        <strong> Notificação para a humidade do solo </strong>
-                        <div id="currentTemp" class="ms-auto"></div>
-                      </div>
-                    </div>
+                    <Notifications :title="'Estufa'" />
                   </div>
                 </div>
                 <div class="card">
                   <div class="card-body">
                     <h5 class="card-title text-center">Jardim da Piscina</h5>
-                    <div>
-                      <div class="d-flex">
-                        <i class="far fa-flag text-danger"></i>
-                        <i class="pe-1"></i>
-                        <strong> Notificação para a temperatura </strong>
-                        <div id="currentTemp" class="ms-auto"></div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="d-flex">
-                        <i class="far fa-flag text-danger"></i>
-                        <i class="pe-1"></i>
-                        <strong> Notificação para a exposição solar </strong>
-                        <div id="currentTemp" class="ms-auto"></div>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="d-flex">
-                        <i class="far fa-flag text-danger"></i>
-                        <i class="pe-1"></i>
-                        <strong> Notificação para a humidade do solo </strong>
-                        <div id="currentTemp" class="ms-auto"></div>
-                      </div>
-                    </div>
+                    <Notifications :title="'JardimPiscina'" />
                   </div>
                 </div>
               </div>
@@ -263,8 +217,11 @@
 
 
 <script>
+import Notifications  from "./Notifications.vue"
 export default {
   name: "Regras",
-  components: {},
+  components: {
+    Notifications
+  },
 };
 </script>

@@ -3,8 +3,7 @@
     <div class="card">
       <div class="card-body">
         <div>
-          <ThingComponent v-for="thing in things" :key="thing" :thing="thing" />
-          <NotAlert v-for="thing in things" :key="thing" :thing="thing" />
+          <NotComponents v-for="thing in things" :key="thing" :thing="thing" />
         </div>
       </div>
     </div>
@@ -13,15 +12,13 @@
 
 <script>
 import { getDatabase, ref, onValue } from "firebase/database";
-import ThingComponent from "./ThingComponent.vue";
-import NotAlert from "./NotAlert.vue"
+import NotComponents from "./NotComponents.vue";
 
 export default {
-  name: "ZoneCard",
+  name: "Notifications",
   props: ["title"],
   components: {
-    ThingComponent,
-    NotAlert
+    NotComponents,
   },
   data() {
     return {
