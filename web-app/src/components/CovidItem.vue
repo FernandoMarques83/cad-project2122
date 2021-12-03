@@ -5,7 +5,7 @@
       <i class="pe-1"></i>
       <strong> {{ title }}</strong>
       <div class="ms-auto">
-        {{ info.covidKey}}
+        {{ info}} casos
       </div>
     </div>
   </div>
@@ -23,13 +23,19 @@ export default {
       info: "" ,
     };
   },
+  methods:{
+    getValue(response){
+      const keys = this.covidKey.split(".")
+      return response[keys[0]]
+  }
+  },
   mounted() {
     axios
   .get(
     "https://covid19-api.vost.pt/Requests/get_last_update"
   )
   .then((response) => (
-    this.info = response.data)
+    this.info = this.getValue(response.data))
     );
   },
 

@@ -5,7 +5,8 @@
       <i class="pe-1"></i>
       <strong> {{ thing.name }} </strong>
       <div class="ms-auto">
-        <p>{{ value }}</p>
+        {{ value.value }}
+        {{ thing.var }}
       </div>
     </div>
   </div>
@@ -29,7 +30,8 @@
       <i :class="[thing.icon]"></i>
       <i class="pe-1"></i>
       <strong> {{ thing.name }} </strong>
-      <p>:</p><i class="pe-1"></i>
+      <p>:</p>
+      <i class="pe-1"></i>
       <span v-text="total"></span>
       <div class="ms-auto">
         <input

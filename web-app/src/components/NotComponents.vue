@@ -35,7 +35,7 @@ export default {
   methods: {
     onClick() {
       set(ref(getDatabase(), this.thing.notPath), !this.value);
-    }
+    },
   },
   mounted() {
     onValue(ref(getDatabase(), this.thing.notPath), (snapshot) => {

@@ -4,7 +4,7 @@
       <div class="card-body">
         <div>
           <ThingComponent v-for="thing in things" :key="thing" :thing="thing" />
-          <NotAlert v-for="thing in things" :key="thing" :thing="thing" />
+          <NotAlert v-for="thing in things" :key="thing" :thing="thing"/>
         </div>
       </div>
     </div>

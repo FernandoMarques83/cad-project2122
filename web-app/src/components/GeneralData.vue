@@ -15,17 +15,27 @@
                         :title="firstItem.title"
                         :icon="firstItem.icon"
                         :openKey="firstItem.openKey"
+                        :var="firstItem.var"
                       />
                     </div>
                   </div>
                 </div>
                 <div class="card">
                   <div class="card-body">
+                    <div v-for="firstTime in firstTimes" :key="firstTime.id">
+                      <OpenTime
+                        :title="firstTime.title"
+                        :icon="firstTime.icon"
+                        :openKey="firstTime.openKey"
+                        :var="firstTime.var"
+                      />
+                    </div>
                     <div v-for="secondItem in secondItems" :key="secondItem.id">
                       <OpenItem
                         :title="secondItem.title"
                         :icon="secondItem.icon"
                         :openKey="secondItem.openKey"
+                        :var="secondItem.var"
                       />
                     </div>
                   </div>
@@ -37,6 +47,7 @@
                         :title="thirdItem.title"
                         :icon="thirdItem.icon"
                         :openKey="thirdItem.openKey"
+                        :var="thirdItem.var"
                       />
                     </div>
                   </div>
@@ -106,17 +117,17 @@
 <script>
 import ZoneCard from "./ZoneCard.vue";
 import OpenItem from "./OpenItem.vue";
+import OpenTime from "./OpenTime.vue";
 import uniqueId from "lodash.uniqueid";
 import CovidItem from "./CovidItem.vue";
-/*import AlertCard from "./notAlert.vue";*/
 
 export default {
   name: "GeneralData",
   components: {
     ZoneCard,
     OpenItem,
+    OpenTime,
     CovidItem,
-    /*AlertCard,*/
   },
   data() {
     return {
@@ -126,50 +137,44 @@ export default {
           title: "Temperatura",
           icon: "fas fa-thermometer-half text-dark",
           openKey: "main.temp",
+          var: "ºC",
         },
         {
           id: uniqueId("todo-"),
           title: "Sensação térmica",
           icon: "fas fa-thermometer-half text-warning",
           openKey: "main.feels_like",
+          var: "ºC",
         },
         {
           id: uniqueId("todo-"),
           title: "Temperatura mínima",
           icon: "fas fa-temperature-low text-primary",
           openKey: "main.temp_min",
+          var: "ºC",
         },
         {
           id: uniqueId("todo-"),
           title: "Temperatura máxima",
           icon: "fas fa-temperature-high text-danger",
           openKey: "main.temp_max",
+          var: "ºC",
         },
       ],
       secondItems: [
         {
           id: uniqueId("todo-"),
-          title: "Nascer do sol",
-          icon: "fas fa-sun text-warning",
-          openKey: "sys.sunrise",
-        },
-        {
-          id: uniqueId("todo-"),
-          title: "Pôr do sol",
-          icon: "fas fa-moon text-dark",
-          openKey: "sys.sunset",
-        },
-        {
-          id: uniqueId("todo-"),
           title: "Humidade",
           icon: "fas fa-percentage text-info",
           openKey: "main.humidity",
+          var: "%",
         },
         {
           id: uniqueId("todo-"),
           title: "Nebulosidade",
           icon: "fas fa-cloud text-muted",
           openKey: "clouds.all",
+          var: "%",
         },
       ],
       thirdItems: [
@@ -178,24 +183,44 @@ export default {
           title: "Velocidade do vento",
           icon: "fas fa-wind text-muted",
           openKey: "wind.speed",
+          var: "km/h",
         },
         {
           id: uniqueId("todo-"),
           title: "Sentido do vento",
           icon: "fas fa-wind text-muted",
           openKey: "wind.deg",
+          var: "º",
         },
         {
           id: uniqueId("todo-"),
           title: "Volume de chuva na última hora",
           icon: "fas fa-cloud-rain text-info",
           openKey: "rain.1h",
+          var: "m3",
         },
         {
           id: uniqueId("todo-"),
           title: "Volume de neve na última hora",
           icon: "fas fa-snowflake text-primary",
           openKey: "snow.1h",
+          var: "m3",
+        },
+      ],
+      firstTimes: [
+        {
+          id: uniqueId("todo-"),
+          title: "Nascer do sol",
+          icon: "fas fa-sun text-warning",
+          openKey: "sys.sunrise",
+          var: "h"
+        },
+        {
+          id: uniqueId("todo-"),
+          title: "Pôr do sol",
+          icon: "fas fa-moon text-dark",
+          openKey: "sys.sunset",
+          var:"h"
         },
       ],
       covidItems: [
@@ -209,7 +234,7 @@ export default {
           id: uniqueId("todo-"),
           title: "Casos comfirmados no último dia em Portugal",
           icon: "fas fa-hospital-user text-danger",
-          covidKey: "confirmados_novos"
+          covidKey: "confirmados_novos",
         },
       ],
     };
