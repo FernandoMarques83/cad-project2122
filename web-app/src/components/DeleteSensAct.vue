@@ -3,25 +3,23 @@
     <div class="card">
       <div class="card-body">
         <div>
-          <ThingComponent v-for="thing in things" :key="thing" :thing="thing" />
-          <NotAlert v-for="thing in things" :key="thing" :thing="thing" />
+          <ThingList v-for="thing in things" :key="thing" :thing="thing" />
         </div>
       </div>
     </div>
   </div>
 </template>
 
+
 <script>
 import { getDatabase, ref, onValue } from "firebase/database";
-import ThingComponent from "./ThingComponent.vue";
-import NotAlert from "./NotAlert.vue";
+import ThingList from "./ThingList.vue";
 
 export default {
-  name: "ZoneCard",
+  name: "DeleteSensAct",
   props: ["title"],
   components: {
-    ThingComponent,
-    NotAlert
+    ThingList,
   },
   data() {
     return {
@@ -32,8 +30,8 @@ export default {
     onValue(ref(getDatabase(), this.title), (snapshot) => {
       if (snapshot.exists()) {
         console.log(snapshot.val());
+        this.things = snapshot.val();
       }
-      this.things = snapshot.val();
     });
   },
 };

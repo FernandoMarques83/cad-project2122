@@ -34,7 +34,7 @@
           </li>
           <li class="nav-item">
             <router-link class="nav-link" :class="isActive('/Add')" to="/Add"
-              >Adicionar</router-link
+              >Settings</router-link
             >
           </li>
         </ul>
