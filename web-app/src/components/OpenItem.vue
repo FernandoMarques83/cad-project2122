@@ -6,7 +6,7 @@
       <strong> {{ title }}</strong>
       <div class="ms-auto">
       {{info}}
-      {{var}}
+      {{unit}}
       </div>
     </div>
   </div>
@@ -18,11 +18,11 @@ import axios from "axios";
 
 export default {
   name: "OpenItem",
-  props: ["title", "icon", "openKey", "var"],
+  props: ["title", "icon", "openKey", "unit"],
   
   data() {
     return {
-      info: "" ,
+      info: "" 
     };
   },
   methods:{
