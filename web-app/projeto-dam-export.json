@@ -1,0 +1,95 @@
+{
+  "Estufa" : [ {
+    "icon" : "fas fa-thermometer-half text-dark",
+    "name" : "Temperatura",
+    "notPath" : "notification1",
+    "path" : "/sensor1",
+    "type" : "sensor",
+    "var" : "ºC"
+  }, {
+    "icon" : "fas fa-percentage text-info",
+    "name" : "Humidade do ar",
+    "notPath" : "notification2",
+    "path" : "/sensor2",
+    "type" : "sensor",
+    "var" : "%"
+  }, {
+    "icon" : "fas fa-percentage text-info",
+    "name" : "Humidade do solo",
+    "notPath" : "notification3",
+    "path" : "/sensor3",
+    "type" : "sensor",
+    "var" : "%"
+  }, {
+    "icon" : "fas fa-fan text-success",
+    "name" : "Velocidade da ventoinha",
+    "path" : "/actuator1",
+    "type" : "slider",
+    "var" : "PWM"
+  } ],
+  "JardimPiscina" : [ {
+    "icon" : "fas fa-thermometer-half textdark",
+    "name" : "Temperatura",
+    "notPath" : "notification4",
+    "path" : "/sensor4",
+    "type" : "sensor",
+    "var" : "ºC"
+  }, {
+    "icon" : "fas fa-sun text-warning",
+    "name" : "Exposição Solar",
+    "notPath" : "notification5",
+    "path" : "/sensor5",
+    "type" : "sensor",
+    "var" : "lux"
+  }, {
+    "icon" : "fas fa-percentage text-info",
+    "name" : "Humidade do solo ",
+    "notPath" : "notification6",
+    "path" : "/sensor6",
+    "type" : "sensor",
+    "var" : "%"
+  }, {
+    "icon" : "fas fa-water text-primary",
+    "name" : "Irrigadores",
+    "path" : "/actuator2",
+    "type" : "actuator"
+  } ],
+  "actuator1" : "100",
+  "actuator2" : true,
+  "notification1" : true,
+  "notification2" : true,
+  "notification3" : true,
+  "notification4" : true,
+  "notification5" : true,
+  "notification6" : true,
+  "sensor1" : {
+    "max" : 15,
+    "min" : 10,
+    "value" : 24.47
+  },
+  "sensor2" : {
+    "max" : 35,
+    "min" : 30,
+    "value" : 56.9158
+  },
+  "sensor3" : {
+    "max" : 25,
+    "min" : 19,
+    "value" : 30
+  },
+  "sensor4" : {
+    "max" : 45,
+    "min" : 11,
+    "value" : 54.8
+  },
+  "sensor5" : {
+    "max" : 75,
+    "min" : 34,
+    "value" : 1122.58691
+  },
+  "sensor6" : {
+    "max" : 85,
+    "min" : 55,
+    "value" : 54
+  }
+}

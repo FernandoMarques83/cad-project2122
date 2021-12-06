@@ -24,6 +24,7 @@ Adafruit_Si7021 sensor = Adafruit_Si7021();
 const int LM35_Sensor1 = GPIO_NUM_36;
 const int relayPin = GPIO_NUM_25;
 const int portaLDR = GPIO_NUM_38 ;
+const int fanPin = GPIO_NUM_2;
 
 FirebaseData fbdo;
 FirebaseAuth auth;
@@ -39,6 +40,7 @@ float estufaHumidSolo = 0;
 int estufaHighTemp = 0;
 String fanSpeed = "";
 int Speed = 0;
+int dutyCycle = 0;
 //-------------------------------- Definição das variaveis do jardim ------------------------------
 float jardimTemp = 0;
 float jardimSolar = 0;
@@ -67,6 +69,12 @@ float ldrResistance = 0;
 float bmeTemp = 0.0;
 float siHumid = 0.0;
 
+
+//------------------------------------- Propiedades do PWM ------------------------------------
+const int freq = 5000;
+const int ledChannel = 0;
+const int resolution = 8;
+
 void setup()
 {
 
@@ -76,6 +84,10 @@ void setup()
   pinMode(LM35_Sensor1, INPUT);
   pinMode(portaLDR, INPUT);
   pinMode(relayPin, OUTPUT);
+
+  ledcSetup(ledChannel, freq, resolution);
+  ledcAttachPin(fanPin, ledChannel);
+
 
   // Configuração do Wifi e Firebase
   setupWifi();
@@ -90,6 +102,7 @@ void loop()
   readLm35();
   readLDR();
   readGY21();
+  getRanValue();
 
 
   if (millis() - dataMillis > 500 && Firebase.ready()) {
@@ -172,7 +185,7 @@ void readLm35()
   Voltage = readADC_Cal(LM35_Raw_Sensor1);
   jardimTemp = Voltage / 10;
 
-  Serial.printf("Temperatura : %f \n", jardimTemp);
+  Serial.printf("Temperatura do Jardim: %f \n", jardimTemp);
 
 }
 
@@ -184,7 +197,7 @@ void readLDR()
   ldrResistance = ldrVoltage / resistorVoltage * REF_RESISTANCE ;
   jardimSolar = LUX_CALC_SCALAR * pow(ldrResistance, LUX_CALC_EXPONENT);
 
-  Serial.printf("Lux %f : \n", jardimSolar);
+  Serial.printf("Lux do Jardim : %f\n", jardimSolar);
 
 }
 
@@ -194,24 +207,39 @@ void readGY21()
   estufaTemp = bme.readTemperature();
   estufaHumidAr = sensor.readHumidity();
 
-  Serial.printf("Temperature : %f \n", estufaTemp);
-  Serial.printf("Humidity : %f \n", estufaHumidAr);
+  Serial.printf("Temperatura da Estufa : %f \n", estufaTemp);
+  Serial.printf("Humidade do ar da Estufa : %f \n", estufaHumidAr);
 
 }
 
-void updateActuators()
+void getRanValue()
+{
+  estufaHumidSolo = random(0,10000)/100.0;
+  jardimHumidSolo = random(0,10000)/100.0;
+  Serial.printf("Humidade do solo da Estufa : %f \n", estufaHumidSolo);
+  Serial.printf("Humidade do solo do Jardim : %f \n", jardimHumidSolo);
+}
+
+void updateFan()
+{
+  dutyCycle = map(Speed, 0, 100, 0, 255);
+  ledcWrite(ledChannel, dutyCycle);
+  Serial.printf("Ventoinha a funcionar a %d %%", Speed);
+}
+
+void updateIrrigadores()
 {
 
 if (jardimIrrigadores == "true")
 {
   digitalWrite(relayPin, HIGH);
-  Serial.printf("True True");
+  Serial.printf("Irrigadores ligados");
 }
 
 else if (jardimIrrigadores == "false")
 {
   digitalWrite(relayPin, LOW);
-  Serial.printf("Falsie False");
+  Serial.printf("Irrigadores desligados");
 }
   
 }
@@ -227,16 +255,17 @@ void readFirebase()
   jardimIrrigadores = Firebase.RTDB.getString(&fbdo, "actuator2");
   jardimIrrigadores = fbdo.stringData();
 
-  updateActuators();
-  
-  Serial.printf("ActuatorValue1 : %s com valor %d \n", fanSpeed, Speed);
-  Serial.printf("ActuatorValue2 : %s", jardimIrrigadores);
+  updateFan();
+  updateIrrigadores();
+ 
 }
 
 void writeFirebase()
 {
   Firebase.RTDB.setFloat(&fbdo, "sensor1/value", estufaTemp);
   Firebase.RTDB.setFloat(&fbdo, "sensor2/value", estufaHumidAr);
+  Firebase.RTDB.setFloat(&fbdo, "sensor3/value", estufaHumidSolo);
   Firebase.RTDB.setFloat(&fbdo, "sensor4/value", jardimTemp);
   Firebase.RTDB.setFloat(&fbdo, "sensor5/value", jardimSolar);
+  Firebase.RTDB.setFloat(&fbdo, "sensor6/value", jardimHumidSolo);
 }
