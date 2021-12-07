@@ -1,5 +1,6 @@
 <template>
   <div>
+    <span class="border border-bottom-0"></span>
     <h4 class="text-center">Remover Sensores / Atuadores</h4>
     <div class="container-fluid mt-3">
       <div class="mt-2 row g-2">
@@ -21,7 +22,7 @@
         </div>
       </div>
     </div>
-
+    <span class="border border-bottom-0"></span>
     <h4 class="text-center">Adicionar Sensores / Atuadores</h4>
     <div class="container-fluid mt-3">
       <div class="mt-2 row g-2">
@@ -29,21 +30,21 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Estufa</h5>
-             <CreateSensAct :title="'Estufa'"/>
+              <CreateSensAct :title="'Estufa'" />
             </div>
           </div>
-            </div>
-          <div class="col-md-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Jardim da Piscina</h5> 
-               <CreateSensAct :title="'JardimPiscina'"/>
-              </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Jardim da Piscina</h5>
+              <CreateSensAct :title="'JardimPiscina'" />
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 
