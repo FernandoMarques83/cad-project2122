@@ -10,8 +10,8 @@
 #include "esp_adc_cal.h"
 
 //---------------------------------------- Configurações -----------------------------------------
-#define WIFI_SSID "Pombo2020"
-#define WIFI_PASSWORD "pombo2018"
+#define WIFI_SSID "Mia2"
+#define WIFI_PASSWORD "12345678"
 #define API_KEY "AIzaSyBVp7AbG9vujk7RIu-q9fgIuSYkXCAdXHI"
 #define USER_EMAIL "2202578@my.ipleiria.pt"
 #define USER_PASSWORD "projetoDAM"
@@ -25,6 +25,8 @@ const int LM35_Sensor1 = GPIO_NUM_36;
 const int relayPin = GPIO_NUM_25;
 const int portaLDR = GPIO_NUM_38 ;
 const int fanPin = GPIO_NUM_2;
+const int estufaLED = GPIO_NUM_32;
+const int jardimLED = GPIO_NUM_27;
 
 FirebaseData fbdo;
 FirebaseAuth auth;
@@ -41,12 +43,17 @@ int estufaHighTemp = 0;
 String fanSpeed = "";
 int Speed = 0;
 int dutyCycle = 0;
+String notification1 = "";
+int estufaMaxTemp = 0;
+
 //-------------------------------- Definição das variaveis do jardim ------------------------------
 float jardimTemp = 0;
 float jardimSolar = 0;
 float jardimHumidSolo = 0;
 String jardimIrrigadores = "";
 int jardimHighTemp = 0;
+String notification4 = "";
+int jardimMaxTemp = 0;
 
 //----------------------------- Definição das variaveis do sensor Lm35 ----------------------------
 int LM35_Raw_Sensor1 = 0;
@@ -71,7 +78,7 @@ float siHumid = 0.0;
 
 
 //------------------------------------- Propiedades do PWM ------------------------------------
-const int freq = 5000;
+const int freq = 25000;
 const int ledChannel = 0;
 const int resolution = 8;
 
@@ -84,6 +91,8 @@ void setup()
   pinMode(LM35_Sensor1, INPUT);
   pinMode(portaLDR, INPUT);
   pinMode(relayPin, OUTPUT);
+  pinMode(estufaLED, OUTPUT);
+  pinMode(jardimLED, OUTPUT);
 
   ledcSetup(ledChannel, freq, resolution);
   ledcAttachPin(fanPin, ledChannel);
@@ -214,17 +223,47 @@ void readGY21()
 
 void getRanValue()
 {
-  estufaHumidSolo = random(0,10000)/100.0;
-  jardimHumidSolo = random(0,10000)/100.0;
+  estufaHumidSolo = random(2000,8500)/100.0;
+  jardimHumidSolo = random(2000,8500)/100.0;
   Serial.printf("Humidade do solo da Estufa : %f \n", estufaHumidSolo);
   Serial.printf("Humidade do solo do Jardim : %f \n", jardimHumidSolo);
 }
 
+void checkEstufaTemp(){
+
+  estufaMaxTemp = Firebase.RTDB.getInt(&fbdo, "sensor1/max");
+  estufaMaxTemp = fbdo.intData();
+
+  if (estufaTemp > estufaMaxTemp)
+  {
+    digitalWrite(estufaLED, HIGH);
+  }
+  else 
+  {
+    digitalWrite(estufaLED, LOW);
+  }
+}
+
+void checkJardimTemp(){
+
+  jardimMaxTemp = Firebase.RTDB.getInt(&fbdo, "sensor4/max");
+  jardimMaxTemp = fbdo.intData();
+
+  if (jardimTemp > jardimMaxTemp)
+  {
+    digitalWrite(jardimLED, HIGH);
+  }
+  else 
+  {
+    digitalWrite(jardimLED, LOW);
+  }
+}
+
 void updateFan()
 {
-  dutyCycle = map(Speed, 0, 100, 0, 255);
+  dutyCycle = map(Speed, 0, 100, 65, 255);
   ledcWrite(ledChannel, dutyCycle);
-  Serial.printf("Ventoinha a funcionar a %d %%", Speed);
+  Serial.printf("Ventoinha a funcionar a %d%% \n", Speed);
 }
 
 void updateIrrigadores()
@@ -233,13 +272,13 @@ void updateIrrigadores()
 if (jardimIrrigadores == "true")
 {
   digitalWrite(relayPin, HIGH);
-  Serial.printf("Irrigadores ligados");
+  Serial.printf("Irrigadores ligados\n");
 }
 
 else if (jardimIrrigadores == "false")
 {
   digitalWrite(relayPin, LOW);
-  Serial.printf("Irrigadores desligados");
+  Serial.printf("Irrigadores desligados\n");
 }
   
 }
@@ -254,6 +293,22 @@ void readFirebase()
 
   jardimIrrigadores = Firebase.RTDB.getString(&fbdo, "actuator2");
   jardimIrrigadores = fbdo.stringData();
+
+  notification1 = Firebase.RTDB.getString(&fbdo, "notification1");
+  notification1 = fbdo.stringData();
+
+  notification4 = Firebase.RTDB.getString(&fbdo, "notification1");
+  notification4 = fbdo.stringData();
+
+  if (notification1 == "true")
+  {
+    checkEstufaTemp();
+  }
+
+  if (notification4 == "true")
+  {
+    checkJardimTemp();
+  }
 
   updateFan();
   updateIrrigadores();

@@ -5,7 +5,7 @@
       <i class="pe-1"></i>
       <strong> {{ thing.name }} </strong>
       <div class="ms-auto">
-        {{ value.value }}
+        {{ formatedValue }}
         {{ thing.var }}
       </div>
     </div>
@@ -57,6 +57,7 @@ export default {
     return {
       value: "",
       sliderVal: "",
+      formatedValue: "",
     };
   },
   methods: {
@@ -77,6 +78,7 @@ export default {
     onValue(ref(getDatabase(), this.thing.path), (snapshot) => {
       if (snapshot.exists()) {
         this.value = snapshot.val();
+        this.formatedValue =this.value.value.toFixed(2);
         this.sliderVal = snapshot.val();
       }
     });
