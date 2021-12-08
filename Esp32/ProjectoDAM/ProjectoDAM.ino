@@ -17,8 +17,12 @@
 #define USER_PASSWORD "projetoDAM"
 #define DATABASE_URL "https://projeto-dam-4bcc6-default-rtdb.europe-west1.firebasedatabase.app/"
 
-Adafruit_BMP280 bme; // I2C
+Adafruit_BMP280 bme;
 Adafruit_Si7021 sensor = Adafruit_Si7021();
+
+FirebaseData fbdo;
+FirebaseAuth auth;
+FirebaseConfig config;
 
 //------------------------------------- Definição dos Pinos --------------------------------------
 const int LM35_Sensor1 = GPIO_NUM_36;
@@ -28,9 +32,7 @@ const int fanPin = GPIO_NUM_2;
 const int estufaLED = GPIO_NUM_32;
 const int jardimLED = GPIO_NUM_27;
 
-FirebaseData fbdo;
-FirebaseAuth auth;
-FirebaseConfig config;
+//------------------------------------ Definição de variaveis ------------------------------------
 
 unsigned long dataMillis = 0;
 int count = 0;
@@ -40,20 +42,20 @@ float estufaTemp = 0;
 float estufaHumidAr = 0;
 float estufaHumidSolo = 0;
 int estufaHighTemp = 0;
-String fanSpeed = "";
 int Speed = 0;
 int dutyCycle = 0;
-String notification1 = "";
 int estufaMaxTemp = 0;
+String fanSpeed = "";
+String notification1 = "";
 
 //-------------------------------- Definição das variaveis do jardim ------------------------------
 float jardimTemp = 0;
 float jardimSolar = 0;
 float jardimHumidSolo = 0;
-String jardimIrrigadores = "";
-int jardimHighTemp = 0;
-String notification4 = "";
 int jardimMaxTemp = 0;
+int jardimHighTemp = 0;
+String jardimIrrigadores = "";
+String notification4 = "";
 
 //----------------------------- Definição das variaveis do sensor Lm35 ----------------------------
 int LM35_Raw_Sensor1 = 0;
@@ -93,7 +95,8 @@ void setup()
   pinMode(relayPin, OUTPUT);
   pinMode(estufaLED, OUTPUT);
   pinMode(jardimLED, OUTPUT);
-
+  
+  // Configuração da saída de PWM
   ledcSetup(ledChannel, freq, resolution);
   ledcAttachPin(fanPin, ledChannel);
 
@@ -107,13 +110,13 @@ void setup()
 
 void loop()
 {
-
+  // Leitura dos valores dos sensores
   readLm35();
   readLDR();
   readGY21();
   getRanValue();
 
-
+  // Leitura e escrita da firebase
   if (millis() - dataMillis > 500 && Firebase.ready()) {
     dataMillis = millis();
     writeFirebase();
@@ -237,6 +240,7 @@ void checkEstufaTemp(){
   if (estufaTemp > estufaMaxTemp)
   {
     digitalWrite(estufaLED, HIGH);
+    Serial.printf("Temperatura da estufa elevada !!\n");
   }
   else 
   {
@@ -252,6 +256,7 @@ void checkJardimTemp(){
   if (jardimTemp > jardimMaxTemp)
   {
     digitalWrite(jardimLED, HIGH);
+    Serial.printf("Temperatura do jardim da piscina elevada !!\n");
   }
   else 
   {
@@ -297,17 +302,24 @@ void readFirebase()
   notification1 = Firebase.RTDB.getString(&fbdo, "notification1");
   notification1 = fbdo.stringData();
 
-  notification4 = Firebase.RTDB.getString(&fbdo, "notification1");
+  notification4 = Firebase.RTDB.getString(&fbdo, "notification4");
   notification4 = fbdo.stringData();
 
   if (notification1 == "true")
   {
     checkEstufaTemp();
   }
-
+  else if (notification1 == "false")
+  {
+    digitalWrite(estufaLED, LOW);
+  }
   if (notification4 == "true")
   {
     checkJardimTemp();
+  }
+  else if (notification4 == "false")
+  {
+    digitalWrite(jardimLED, LOW);
   }
 
   updateFan();

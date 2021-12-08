@@ -77,8 +77,8 @@ export default {
     onValue(ref(getDatabase(), this.thing.path), (snapshot) => {
       if (snapshot.exists()) {
         this.value = snapshot.val();
-        this.formatedValue =this.value.value.toFixed(2);
         this.sliderVal = snapshot.val();
+        this.formatedValue =this.value.value.toFixed(2);
       }
     });
   },
