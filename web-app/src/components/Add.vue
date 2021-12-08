@@ -54,7 +54,6 @@ import CreateSensAct from "./CreateSensAct.vue";
 
 export default {
   name: "Add",
-  props: ["title"],
   components: {
     DeleteSensAct,
     CreateSensAct,

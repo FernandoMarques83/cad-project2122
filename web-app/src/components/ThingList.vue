@@ -9,14 +9,14 @@
         class="btn btn-white"
         type="button"
         data-bs-toggle="modal"
-        data-bs-target="#Modal1"
+        :data-bs-target="'#Modal1'+ getThingID()"
       >
         <i class="fas fa-trash text-dark"></i>
 
         <!-- Modal -->
         <div
           class="modal fade"
-          id="Modal1"
+          :id="'Modal1'+ getThingID()"
           tabindex="-1"
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
@@ -38,11 +38,11 @@
               <div class="modal-footer">
                 <button
                   type="button"
-                  class="btn btn-secondary"
+                  class="btn btn-primary"
                   data-bs-dismiss="modal"
                   @click="onClick()"
                 >
-                  Close
+                  Confirm
                 </button>
               </div>
             </div>
@@ -54,26 +54,26 @@
 </template> 
 
 <script>
-import { getDatabase, set, ref } from "firebase/database";
+
 
 export default {
   name: "ThingList",
   props: ["thing"],
   data() {
     return {
-      value: "",
-      sliderVal: "",
+ 
      
     };
   },
   methods: {
     onClick() {
+      console.log(this.thing.name);
       
-      this.$parent.things.splice(this.$parent.things.indexOf(this.thing),1);
-      console.log(this.things);
-      set(ref(getDatabase(), this.$parent.title), this.$parent.things);
-      console.log("O Seu sensor foi apagado da firabase");
+      this.$parent.removeThing(this.thing);
     },
+    getThingID(){
+      return this.thing.path.replaceAll("/","");
+    }
   },
 };
 </script>

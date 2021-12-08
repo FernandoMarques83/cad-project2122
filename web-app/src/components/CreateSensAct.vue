@@ -4,13 +4,13 @@
       class="btn btn-white"
       type="button"
       data-bs-toggle="modal"
-      :data-bs-target="'#Modal2'+title"
+      :data-bs-target="'#Modal2' + title"
     >
       <i class="fas fa-folder-plus fa-2x" style="color: #008000"></i>
       <!-- Modal -->
       <div
         class="modal fade"
-        :id="'Modal2'+title"
+        :id="'Modal2' + title"
         tabindex="-1"
         aria-labelledby="ModalLabel"
         aria-hidden="true"
@@ -59,7 +59,7 @@
         class="form-control"
         aria-label="Sizing example input"
         aria-describedby="inputGroup-sizing-default"
-        v-model="icone"
+        v-model="thing.icon"
       />
     </div>
 
@@ -70,7 +70,7 @@
         class="form-control"
         aria-label="Sizing example input"
         aria-describedby="inputGroup-sizing-default"
-        v-model="nome"
+        v-model="thing.name"
       />
     </div>
 
@@ -83,7 +83,7 @@
         class="form-control"
         aria-label="Sizing example input"
         aria-describedby="inputGroup-sizing-default"
-        v-model="not"
+        v-model="thing.notPath"
       />
     </div>
 
@@ -96,7 +96,7 @@
         class="form-control"
         aria-label="Sizing example input"
         aria-describedby="inputGroup-sizing-default"
-        v-model="caminho"
+        v-model="thing.path"
       />
     </div>
 
@@ -107,7 +107,7 @@
         class="form-control"
         aria-label="Sizing example input"
         aria-describedby="inputGroup-sizing-default"
-        v-model="tipo"
+        v-model="thing.type"
       />
     </div>
 
@@ -120,7 +120,7 @@
         class="form-control"
         aria-label="Sizing example input"
         aria-describedby="inputGroup-sizing-default"
-        v-model="vari"
+        v-model="thing.var"
       />
     </div>
   </div>
@@ -128,56 +128,53 @@
 
 
 <script>
-import { getDatabase, ref, set, onValue } from "firebase/database/";
+import { getDatabase, set, ref, onValue } from "firebase/database/";
 
 export default {
-  name: "CreaeteSensAct",
+  name: "CreateSensAct",
   props: ["title"],
   components: {},
   data() {
     return {
-      icon: "",
-      nome: "",
-      not: "",
-      caminho: "",
-      tipo: "",
-      vari: "",
-      ind : 0
+      things: [],
+      thing: {
+       icon: "",
+        name: "",
+        notPath: "",
+        path: "",
+        type: "",
+        var: "",
+      },
     };
   },
 
   methods: {
     onClick() {
-     
-
-      var newItem = {
-        icon: this.icone,
-        name: this.nome,
-        notPath: this.not,
-        path: this.caminho,
-        type: this.tipo,
-        vat: this.vari,
-      };
       console.log("Item adicionado");
-      console.log(this.icone);
-      console.log(this.caminho);
-      console.log(this.nome);
-      console.log(this.not);
-      console.log(this.tipo);
-      console.log(this.vari);
-      set(ref(getDatabase(), this.title + "/" + this.ind), newItem);
+
+      this.things.push(this.thing);
+      set(ref(getDatabase(), this.title), this.things);
+
+      this.thing = {
+        icon: "",
+        name: "",
+        notPath: "",
+        path: "",
+        type: "",
+        var: "",
+      };
     },
   },
-  mounted(){
-     onValue(ref(getDatabase(), this.title), (snapshot) => {
-        if (snapshot.exists()) {
-          console.log(snapshot.val());
-        }
-        this.things = snapshot.val();
-        this.ind = this.things.length;
-        
-      });
+  mounted() {
+    onValue(ref(getDatabase(), this.title), (snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
 
-  }
+        this.things = snapshot.val();
+      } else {
+        this.things = [];
+      }
+    });
+  },
 };
 </script>
