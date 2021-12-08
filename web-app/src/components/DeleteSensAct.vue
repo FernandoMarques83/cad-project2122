@@ -38,12 +38,8 @@ export default {
        if (this.things[i].name == thing.name){
          index =i;
        }
-       console.log(this.things[i].name);
        }
-      console.log(index);
       this.things.splice(index ,1);
-
-      console.log(this.things);
       set(ref(getDatabase(), this.title), this.things);
       console.log("O Seu sensor foi apagado da firabase");
     },

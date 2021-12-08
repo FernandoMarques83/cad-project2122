@@ -29,7 +29,7 @@
               ></button>
             </div>
             <div class="modal-body">
-              O seu item será adicionado na base de dados! Pertende continuar?
+              O seu item será adicionado na base de dados! Pretende continuar?
             </div>
             <div class="modal-footer">
               <button
@@ -168,8 +168,6 @@ export default {
   mounted() {
     onValue(ref(getDatabase(), this.title), (snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val());
-
         this.things = snapshot.val();
       } else {
         this.things = [];

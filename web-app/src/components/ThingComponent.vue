@@ -66,7 +66,6 @@ export default {
     },
     onChange() {
       set(ref(getDatabase(), this.thing.path), this.sliderVal);
-      console.log("change!", this.sliderVal);
     },
   },
   computed: {

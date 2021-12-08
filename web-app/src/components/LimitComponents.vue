@@ -5,42 +5,42 @@
         <div class="d-flex">
           <i class="fas fa-arrow-down text-primary"></i>
           <i class="pe-1"></i>
-          <strong> Limiar inferior da {{ thing.name }} :</strong>
-          <div class="row justify-content-md-center">
-            <div class="col-md-auto">
-              Atual: {{ limits.min }}
-            </div>
-            <div class="col-6">
-              <input
-                type="text"
-                class="form-control"
-                size="sm"
-                v-model="min"
-                placeholder="Insira o valor"
-                :maxlength="maxLength"
-                @keyup.enter="onEnter(0, thing.name)"
-              />
+          <strong> Limiar inferior da {{ thing.name }} </strong>
+          <div class="ms-auto">
+            <div class="row justify-content-md-center">
+              <div class="col-md-auto">Atual: {{ limits.min }}</div>
+              <div class="col-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  size="sm"
+                  v-model="min"
+                  placeholder="Insira o valor"
+                  :maxlength="enterLimit()"
+                  @keyup.enter="onEnter(0)"
+                />
+              </div>
             </div>
           </div>
         </div>
         <div class="d-flex">
           <i class="fas fa-arrow-up text-danger"></i>
           <i class="pe-1"></i>
-          <strong> Limite superior da {{ thing.name }} :</strong>
-          <div class="row justify-content-md-center">
-            <div class="col-md-auto">
-              Atual: {{ limits.max }}
-            </div>
-            <div class="col-6">
-              <input
-                type="text"
-                class="form-control"
-                size="sm"
-                v-model="max"
-                placeholder="Insira o valor"
-                :maxlength="maxLength"
-                @keyup.enter="onEnter(1, thing.name)"
-              />
+          <strong> Limite superior da {{ thing.name }} </strong>
+          <div class="ms-auto">
+            <div class="row justify-content-md-center">
+              <div class="col-md-auto">Atual: {{ limits.max }}</div>
+              <div class="col-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  size="sm"
+                  v-model="max"
+                  placeholder="Insira o valor"
+                  :maxlength="enterLimit()"
+                  @keyup.enter="onEnter(1)"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -62,11 +62,10 @@ export default {
       minV: "",
       max: "",
       maxV: "",
-      maxLength: 2,
     };
   },
   methods: {
-    onEnter(m, name) {
+    onEnter(m) {
       if (m == 0) {
         this.minV = this.min;
         this.min = "";
@@ -75,6 +74,14 @@ export default {
         this.maxV = this.max;
         this.max = "";
         set(ref(getDatabase(), this.thing.path + "/max"), this.maxV);
+      }
+    },
+    enterLimit(){
+      if (this.thing.path == "/sensor5"){
+        return 4;
+      }
+      else{
+        return 2;
       }
     },
   },

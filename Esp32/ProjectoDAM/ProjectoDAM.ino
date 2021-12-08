@@ -10,8 +10,8 @@
 #include "esp_adc_cal.h"
 
 //---------------------------------------- Configurações -----------------------------------------
-#define WIFI_SSID "Mia2"
-#define WIFI_PASSWORD "12345678"
+#define WIFI_SSID "Pombo2020"
+#define WIFI_PASSWORD "pombo2018"
 #define API_KEY "AIzaSyBVp7AbG9vujk7RIu-q9fgIuSYkXCAdXHI"
 #define USER_EMAIL "2202578@my.ipleiria.pt"
 #define USER_PASSWORD "projetoDAM"

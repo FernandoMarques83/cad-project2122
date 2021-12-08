@@ -40,9 +40,8 @@ export default {
   mounted() {
     onValue(ref(getDatabase(), this.title), (snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val());
+        this.things = snapshot.val();
       }
-      this.things = snapshot.val();
     });
   },
 };

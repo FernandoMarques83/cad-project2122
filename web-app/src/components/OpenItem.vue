@@ -37,7 +37,7 @@ export default {
     "http://api.openweathermap.org/data/2.5/weather?units=metric&q=leiria&appid=c4f0bb5761f8ca78a024fbbee994cd0e&appid=c4f0bb5761f8ca78a024fbbee994cd0e"
   )
   .then((response) => (
-    this.info = this.getValue(response.data))
+      this.info = this.getValue(response.data))
     );
   },
 };

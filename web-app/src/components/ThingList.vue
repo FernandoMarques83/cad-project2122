@@ -67,8 +67,6 @@ export default {
   },
   methods: {
     onClick() {
-      console.log(this.thing.name);
-      
       this.$parent.removeThing(this.thing);
     },
     getThingID(){
